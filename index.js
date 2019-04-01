@@ -6,10 +6,25 @@ const PORT = 3000;
 // its roughly equivalent to the result of calling `http.createServer()`
 const app = express();
 
+function log(req,res,next) {
+    console.log(`they asked for ${req.url}`);
+    next();
+};
+
+function homePage(req,res) {
+    res.send('home page as a named function!');
+};
+
+app.get('/', log, homePage);
+
 // respond to GET requests for the path "/"
 app.get('/', (req, res) => {
     // note: this is different from the plain `res.end`
     console.log('sending the home page');
+
+
+
+
     res.send('Home Page');
 });
 
